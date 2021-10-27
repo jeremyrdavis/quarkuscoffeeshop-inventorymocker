@@ -1,5 +1,6 @@
 package io.quarkuscoffeeshop.inventorymocker.infrastructure;
 
+import io.quarkus.runtime.Startup;
 import io.quarkuscoffeeshop.inventorymocker.domain.Item;
 import io.quarkuscoffeeshop.inventorymocker.domain.RestockItemCommand;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -19,7 +20,7 @@ public class InventoryMockerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryMockerService.class);
 
-    boolean running;
+    boolean running = true;
 
     CustomerVolume customerVolume = CustomerVolume.SLOW;
 
@@ -28,7 +29,7 @@ public class InventoryMockerService {
     Random random = new Random();
 
     @Inject
-    @Channel("inventory-in")
+    @Channel("inventory")
     Emitter<RestockItemCommand> inventoryEmitter;
 
     public boolean isRunning() {
