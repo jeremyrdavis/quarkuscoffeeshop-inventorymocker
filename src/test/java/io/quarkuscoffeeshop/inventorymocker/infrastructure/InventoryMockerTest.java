@@ -5,6 +5,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkuscoffeeshop.inventorymocker.domain.RestockItemCommand;
 import io.smallrye.reactive.messaging.connectors.InMemoryConnector;
 import io.smallrye.reactive.messaging.connectors.InMemorySink;
+import io.smallrye.reactive.messaging.connectors.InMemorySource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -31,12 +32,12 @@ public class InventoryMockerTest {
     @Any
     InMemoryConnector connector;
 
-    InMemorySink<RestockItemCommand> results;
+    InMemorySource<RestockItemCommand> results;
 
     @BeforeEach
     public void setUp() {
 
-        results = connector.sink(SOURCE);
+        results = connector.source(SOURCE);
     }
 
     @Test @Order(1)
