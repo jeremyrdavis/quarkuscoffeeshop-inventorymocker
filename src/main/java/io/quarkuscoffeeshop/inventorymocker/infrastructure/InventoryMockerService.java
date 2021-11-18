@@ -30,7 +30,7 @@ public class InventoryMockerService {
     Random random = new Random();
 
     @Inject
-    @Channel("inventory-in")
+    @Channel("inventory")
     Emitter<RestockItemCommand> inventoryEmitter;
 
     public boolean isRunning() {

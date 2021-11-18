@@ -25,8 +25,6 @@ public class InventoryMockerTest {
 
     String SOURCE = "inventory-in";
 
-    String SINK = "inventory-out";
-
     @Inject
     @Any
     InMemoryConnector connector;

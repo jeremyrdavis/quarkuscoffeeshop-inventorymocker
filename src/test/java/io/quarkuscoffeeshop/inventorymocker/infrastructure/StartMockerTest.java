@@ -1,4 +1,4 @@
-package io.quarkuscoffeeshop;
+package io.quarkuscoffeeshop.inventorymocker.infrastructure;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
@@ -7,15 +7,14 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-public class GreetingResourceTest {
+public class StartMockerTest {
 
     @Test
-    public void testHelloEndpoint() {
+    public void testStartEndpoint() {
         given()
-          .when().get("/hello")
+          .when().get("/api/start")
           .then()
-             .statusCode(200)
-             .body(is("Hello RESTEasy"));
+             .statusCode(200);
     }
 
 }
