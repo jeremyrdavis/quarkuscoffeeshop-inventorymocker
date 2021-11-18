@@ -20,7 +20,7 @@ public class AppLifecycleBean {
 
     void onStart(@Observes StartupEvent ev) {
         LOGGER.info("The application is starting...");
-        inventoryMockerService.start();
+        inventoryMockerService.beginMocking();
         LOGGER.debug("InventoryMockerService: {}", inventoryMockerService.isRunning());
     }
 

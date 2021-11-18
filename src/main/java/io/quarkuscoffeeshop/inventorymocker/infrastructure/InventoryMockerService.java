@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +21,7 @@ public class InventoryMockerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryMockerService.class);
 
-    boolean running = true;
+    private boolean running;
 
     CustomerVolume customerVolume = CustomerVolume.SLOW;
 
@@ -29,7 +30,7 @@ public class InventoryMockerService {
     Random random = new Random();
 
     @Inject
-    @Channel("inventory")
+    @Channel("inventory-in")
     Emitter<RestockItemCommand> inventoryEmitter;
 
     public boolean isRunning() {
@@ -37,7 +38,7 @@ public class InventoryMockerService {
         return running;
     }
 
-    public CompletionStage<Void> start() {
+    public CompletionStage<Void> beginMocking() {
         LOGGER.debug("starting mocker");
         this.running = true;
         return CompletableFuture.runAsync(mockInventoryCommands);
@@ -62,5 +63,22 @@ public class InventoryMockerService {
 
     private Item randomItem() {
         return items[random.nextInt(items.length)];
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("InventoryMockerService{");
+        sb.append("running=").append(running);
+        sb.append(", customerVolume=").append(customerVolume);
+        sb.append(", items=").append(Arrays.toString(items));
+        sb.append(", random=").append(random);
+        sb.append(", inventoryEmitter=").append(inventoryEmitter);
+        sb.append(", mockInventoryCommands=").append(mockInventoryCommands);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public void stop() {
+        this.running = false;
     }
 }
